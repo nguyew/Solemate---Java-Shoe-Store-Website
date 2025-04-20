@@ -1,0 +1,104 @@
+/* General Section Styling */
+.padding_layout_1 {
+    padding-top: 120px;
+    padding-bottom: 115px;
+}
+
+/* Shopping Cart Table */
+.product-table {
+    float: left;
+    width: 100%;
+    overflow: auto;
+}
+
+.shopping-cart .media-object {
+    width: auto;
+    height: 110px;
+    border: solid #ddd 1px;
+}
+
+.shopping-cart h4 {
+    font-size: 16px;
+    text-transform: none;
+    font-weight: 600;
+    margin-top: 30px;
+}
+
+.product-table table.table thead th {
+    border-bottom: 3px solid #dee2e6;
+    border-top: none;
+}
+
+/* Price Styling */
+.price_table {
+    margin: 44px 0 0;
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+}
+
+/* Remove Button */
+.product-table .bt_main {
+    font-size: 13px;
+    padding: 0px 20px;
+    height: 45px;
+    background: #b15656;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: ease-out 0.5s;
+}
+
+.product-table .bt_main:hover {
+    background: #d02424;
+}
+
+/* Coupon Section */
+.coupon {
+    float: left;
+}
+
+.coupon .input-text {
+    border: solid #ccc 1px;
+    padding: 8px 15px;
+}
+
+.cart-form .coupon input#coupon_code {
+    margin-right: 0px;
+    padding: 8px 20px;
+    font-size: 14px;
+}
+
+/* Shopping Cart Summary */
+.shopping-cart-cart {
+    max-width: 350px;
+    float: right;
+    background: #f8f8f8;
+    padding: 25px;
+}
+
+.shopping-cart-cart table tbody tr td {
+    padding: 10px 10px;
+}
+
+.shopping-cart-cart h3 {
+    font-weight: 500;
+    text-transform: none;
+    font-size: 24px;
+}
+
+/* Checkout & Continue Shopping Buttons */
+.shopping-cart .button {
+    padding: 10px 20px;
+    background: #2f2f2f;
+    color: #fff;
+    transition: ease all 0.5s;
+    border: none;
+    cursor: pointer;
+}
+
+.shopping-cart .button:hover,
+.shopping-cart .button:focus {
+    background: #222;
+    color: #fff;
+}

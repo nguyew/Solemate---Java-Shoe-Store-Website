@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/templatemo.css">
+    <link rel="stylesheet" href="assets/css/extra.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form action="#">
+                <h1>Create Account</h1>
+                <input type="text" placeholder="Full Name" name="fullName" required />
+                <input type="text" placeholder="Username" name="username" required />
+                <input type="email" placeholder="Email" name="email" required />
+                <input type="tel" placeholder="Phone Number" name="phone" required />
+                <input type="password" placeholder="Password" name="password" required />
+                <input type="submit" id="buttonSignup" value="Sign up">
+
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form action="login" method="POST">
+                <h1>Sign in</h1>
+                <input type="text" name="loginName" placeholder="Username" />
+                <input type="password" name="loginPass" placeholder="Password" />
+                <a href="#">Forgot your password?</a>
+                <input type="submit" id="buttonLogin" value="Sign in">
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button class="ghost" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Enter your personal details and start journey with us</p>
+                    <button class="ghost" id="signUp">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer></footer>
+    <script src="assets/js/jquery-1.11.0.min.js"></script>
+    <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/templatemo.js"></script>
+    <script src="assets/js/extra.js"></script>
+    <script src="assets/js/custom.js"></script>
+</body>
+
+</html>
