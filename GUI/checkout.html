@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Checkout - Solemate</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/templatemo.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+
+    <style>
+        .checkout-section {
+            padding: 30px 0;
+        }
+        .checkout-heading {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        .checkout-heading h3 {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        .checkout-steps {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e5e5e5;
+            padding-bottom: 15px;
+        }
+        .step {
+            flex: 1;
+            text-align: center;
+            color: #6c757d;
+            position: relative;
+        }
+        .step.active {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .step:not(:last-child):after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 0;
+            height: 1px;
+            width: 50%;
+            background-color: #e5e5e5;
+        }
+        .step:not(:first-child):before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 1px;
+            width: 50%;
+            background-color: #e5e5e5;
+        }
+        .step.active:after, .step.active:before {
+            background-color: #28a745;
+        }
+        .form-control {
+            margin-bottom: 15px;
+        }
+        .order-summary {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .order-product {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        .order-product:last-child {
+            border-bottom: none;
+        }
+        .order-product img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        .order-product-info h6 {
+            margin-bottom: 5px;
+        }
+        .order-product-info p {
+            margin: 0;
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        .order-totals table {
+            width: 100%;
+        }
+        .order-totals td {
+            padding: 8px 0;
+        }
+        .order-totals tr:last-child td {
+            border-top: 1px solid #dee2e6;
+            font-weight: bold;
+            padding-top: 15px;
+        }
+        .payment-methods {
+            margin-top: 20px;
+        }
+        .payment-method {
+            margin-bottom: 15px;
+            padding: 15px;
+            border: 1px solid #e5e5e5;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .payment-method.active {
+            border-color: #28a745;
+            background-color: rgba(40, 167, 69, 0.05);
+        }
+        .payment-method-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .payment-method-logo {
+            display: flex;
+            align-items: center;
+        }
+        .payment-method-logo img {
+            height: 30px;
+            margin-right: 10px;
+        }
+        .payment-method-details {
+            margin-top: 15px;
+            display: none;
+        }
+        .payment-method.active .payment-method-details {
+            display: block;
+        }
+        .btn-back {
+            background: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-back:hover {
+            background: #5a6268;
+            color: white;
+        }
+        .btn-order {
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+        }
+        .btn-order:hover {
+            background: #218838;
+            color: white;
+        }
+        .form-group label {
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .form-check {
+            margin-bottom: 10px;
+        }
+        .vietqr-container {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .vietqr-code {
+            max-width: 200px;
+            margin: 0 auto;
+            border: 1px solid #e5e5e5;
+            padding: 10px;
+            background-color: white;
+        }
+        .vietqr-info {
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+        .vietqr-bank {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .camera-container {
+            width: 100%;
+            max-width: 300px;
+            margin: 15px auto;
+            border: 1px solid #e5e5e5;
+            padding: 10px;
+            text-align: center;
+        }
+        .camera-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .camera-btn:hover {
+            background: #0069d9;
+        }
+        .cod-info {
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        .cod-icon {
+            font-size: 24px;
+            color: #28a745;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Start Top Nav -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
+        <div class="container text-light">
+            <div class="w-100 d-flex justify-content-between">
+                <div>
+                    <i class="fa fa-envelope mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@solemate.com">info@solemate.com</a>
+                    <i class="fa fa-phone mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="tel:123-123-1234">123-123-1234</a>
+                </div>
+                <div>
+                    <a class="text-light" href="https://facebook.com/" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light" href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light" href="https://twitter.com/" target="_blank"><i class="fab fa-twitter fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light" href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin fa-sm fa-fw"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Close Top Nav -->
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
+                Solemate
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="shop.html">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar align-self-center d-flex">
+                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
+                            <div class="input-group-text">
+                                <i class="fa fa-fw fa-search"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
+                        <i class="fa fa-fw fa-search text-dark mr-2"></i>
+                    </a>
+                    <a class="nav-icon position-relative text-decoration-none" href="cart.html">
+                        <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">2</span>
+                    </a>
+                    <a class="nav-icon position-relative text-decoration-none" href="login.html">
+                        <i class="fa fa-fw fa-user text-dark mr-3">User</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Close Header -->
+
+    <!-- Modal -->
+    <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="w-100 pt-1 mb-5 text-right">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" method="get" class="modal-content modal-body border-0 p-0">
+                <div class="input-group mb-2">
+                    <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
+                    <button type="submit" class="input-group-text bg-success text-light">
+                        <i class="fa fa-fw fa-search text-white"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Checkout Section -->
+    <section class="checkout-section py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="mb-4">Checkout</h2>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Shipping Information -->
+                    <div class="checkout-heading" id="shipping-section">
+                        <h3>Shipping Information</h3>
+                    </div>
+                    
+                    <form id="shipping-form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" class="form-control" id="address" required>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" class="form-control" id="city" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="state">State/Province</label>
+                                    <input type="text" class="form-control" id="state" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <select class="form-control" id="country" required>
+                                <option value="">Select Country</option>
+                                <option value="VN">Vietnam</option>
+                                <option value="USA">United States</option>
+                                <option value="CAN">Canada</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="AUS">Australia</option>
+                                <!-- Add more countries as needed -->
+                            </select>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="saveAddress">
+                            <label class="form-check-label" for="saveAddress">
+                                Save this address for future orders
+                            </label>
+                        </div>
+                        
+                        <div class="checkout-heading mt-4" id="payment-section">
+                            <h3>Payment Method</h3>
+                        </div>
+                        
+                        <div class="payment-methods">
+                            <!-- COD Payment -->
+                            <div class="payment-method" id="codMethod">
+                                <div class="payment-method-header">
+                                    <div class="payment-method-logo">
+                                        <input type="radio" name="paymentMethod" id="cod" value="cod">
+                                        <label for="cod" class="ms-2">Cash on Delivery (COD)</label>
+                                    </div>
+                                    <div class="payment-cards">
+                                        <i class="fas fa-money-bill-wave fa-lg"></i>
+                                    </div>
+                                </div>
+                                <div class="payment-method-details">
+                                    <div class="cod-info">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-check-circle cod-icon"></i>
+                                            <h6 class="mb-0">Pay when you receive your order</h6>
+                                        </div>
+                                        <p>Our delivery personnel will collect the payment at the time of delivery. Please ensure you have the exact amount ready.</p>
+                                        <div class="alert alert-info" role="alert">
+                                            <small>Note: COD option is available for orders under $500. A small handling fee of $2.00 will be added to your total.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- VietQR Payment -->
+                            <div class="payment-method" id="vietqrMethod">
+                                <div class="payment-method-header">
+                                    <div class="payment-method-logo">
+                                        <input type="radio" name="paymentMethod" id="vietqr" value="vietqr">
+                                        <label for="vietqr" class="ms-2">VietQR</label>
+                                    </div>
+                                    <div class="payment-cards">
+                                        <img src="assets/img/vietqr-logo.png" alt="VietQR" height="30">
+                                    </div>
+                                </div>
+                                <div class="payment-method-details">
+                                    <div class="vietqr-container">
+                                        <div class="vietqr-code">
+                                            <img src="assets/img/vietqr-sample.png" alt="VietQR Code" class="img-fluid">
+                                        </div>
+                                        <div class="vietqr-info">
+                                            <div class="vietqr-bank">Techcombank</div>
+                                            <div>Account Number: 19037298576</div>
+                                            <div>Account Name: SOLEMATE CO., LTD</div>
+                                            <div>Amount: 231.40 USD</div>
+                                            <div>Description: SO-123456</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="camera-container">
+                                        <p>Scan the code with your banking app</p>
+                                        <div>
+                                            <button type="button" class="camera-btn" id="scanQrBtn">
+                                                <i class="fa fa-camera me-2"></i> Scan QR Code
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Credit Card Payment -->
+                            <div class="payment-method" id="creditCardMethod">
+                                <div class="payment-method-header">
+                                    <div class="payment-method-logo">
+                                        <input type="radio" name="paymentMethod" id="creditCard" value="creditCard">
+                                        <label for="creditCard" class="ms-2">Credit/Debit Card</label>
+                                    </div>
+                                    <div class="payment-cards">
+                                        <i class="fab fa-cc-visa fa-lg me-2"></i>
+                                        <i class="fab fa-cc-mastercard fa-lg me-2"></i>
+                                        <i class="fab fa-cc-amex fa-lg me-2"></i>
+                                        <i class="fab fa-cc-discover fa-lg"></i>
+                                    </div>
+                                </div>
+                                <div class="payment-method-details">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="cardName">Name on Card</label>
+                                                <input type="text" class="form-control" id="cardName" placeholder="John Doe">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="cardNumber">Card Number</label>
+                                                <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="expDate">Expiration Date</label>
+                                                <input type="text" class="form-control" id="expDate" placeholder="MM/YY">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="cvv">CVV</label>
+                                                <input type="text" class="form-control" id="cvv" placeholder="123">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- PayPal Payment -->
+                            <div class="payment-method" id="paypalMethod">
+                                <div class="payment-method-header">
+                                    <div class="payment-method-logo">
+                                        <input type="radio" name="paymentMethod" id="paypal" value="paypal">
+                                        <label for="paypal" class="ms-2">PayPal</label>
+                                    </div>
+                                    <div class="payment-cards">
+                                        <i class="fab fa-paypal fa-lg"></i>
+                                    </div>
+                                </div>
+                                <div class="payment-method-details">
+                                    <p>You will be redirected to PayPal to complete your payment.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Bank Transfer Payment -->
+                            <div class="payment-method" id="bankTransferMethod">
+                                <div class="payment-method-header">
+                                    <div class="payment-method-logo">
+                                        <input type="radio" name="paymentMethod" id="bankTransfer" value="bankTransfer">
+                                        <label for="bankTransfer" class="ms-2">Bank Transfer</label>
+                                    </div>
+                                    <div class="payment-cards">
+                                        <i class="fas fa-university fa-lg"></i>
+                                    </div>
+                                </div>
+                                <div class="payment-method-details">
+                                    <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference.</p>
+                                    <p><strong>Bank:</strong> Example Bank</p>
+                                    <p><strong>Account Number:</strong> 123456789</p>
+                                    <p><strong>Routing Number:</strong> 987654321</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="cart.html" class="btn-back">Back to Cart</a>
+                            <button type="submit" class="btn btn-success">Continue to Review</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="order-summary">
+                        <h4 class="mb-4">Order Summary</h4>
+                        
+                        <div class="order-products">
+                            <div class="order-product">
+                                <img src="assets/img/shop_01.jpg" alt="Nike Air Max">
+                                <div class="order-product-info">
+                                    <h6>Nike Air Max</h6>
+                                    <p>Size: 10 | Color: Black</p>
+                                    <p>1 × $120.00</p>
+                                </div>
+                            </div>
+                            <div class="order-product">
+                                <img src="assets/img/shop_02.jpg" alt="Adidas Originals">
+                                <div class="order-product-info">
+                                    <h6>Adidas Originals</h6>
+                                    <p>Size: 9 | Color: White</p>
+                                    <p>1 × $85.00</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="order-totals mt-4">
+                            <table>
+                                <tr>
+                                    <td>Subtotal</td>
+                                    <td class="text-right">$205.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Shipping</td>
+                                    <td class="text-right">$10.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Tax</td>
+                                    <td class="text-right">$16.40</td>
+                                </tr>
+                                <tr id="codFeeRow" style="display: none;">
+                                    <td>COD Fee</td>
+                                    <td class="text-right">$2.00</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Total</strong></td>
+                                    <td class="text-right"><strong id="orderTotal">$231.40</strong></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="termsConditions" required>
+                            <label class="form-check-label" for="termsConditions">
+                                I agree to the <a href="#">terms and conditions</a>
+                            </label>
+                        </div>
+                        <button type="button" class="btn-order mt-3" id="placeOrderBtn">Place Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Start Footer -->
+    <footer class="bg-dark" id="tempaltemo_footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 pt-5">
+                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">Solemate</h2>
+                    <ul class="list-unstyled text-light footer-link-list">
+                        <li>
+                            <i class="fas fa-map-marker-alt fa-fw"></i>
+                            123 Shoe Street, Footville, FS 12345
+                        </li>
+                        <li>
+                            <i class="fa fa-phone fa-fw"></i>
+                            <a class="text-decoration-none" href="tel:123-123-1234">123-123-1234</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-envelope fa-fw"></i>
+                            <a class="text-decoration-none" href="mailto:info@solemate.com">info@solemate.com</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4 pt-5">
+                    <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
+                    <ul class="list-unstyled text-light footer-link-list">
+                        <li><a class="text-decoration-none" href="#">Men's Shoes</a></li>
+                        <li><a class="text-decoration-none" href="#">Women's Shoes</a></li>
+                        <li><a class="text-decoration-none" href="#">Running Shoes</a></li>
+                        <li><a class="text-decoration-none" href="#">Casual Shoes</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4 pt-5">
+                    <h2 class="h2 text-light border-bottom pb-3 border-light">Further Info</h2>
+                    <ul class="list-unstyled text-light footer-link-list">
+                        <li><a class="text-decoration-none" href="#">Home</a></li>
+                        <li><a class="text-decoration-none" href="#">About Us</a></li>
+                        <li><a class="text-decoration-none" href="#">Shop Locations</a></li>
+                        <li><a class="text-decoration-none" href="#">FAQs</a></li>
+                        <li><a class="text-decoration-none" href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row text-light mb-4">
+                <div class="col-12 mb-3">
+                    <div class="w-100 my-3 border-top border-light"></div>
+                </div>
+                <div class="col-auto me-auto">
+                    <ul class="list-inline text-left footer-icons">
+                        <li class="list-inline-item border border-light rounded-circle text-center">
+                            <a class="text-light text-decoration-none" target="_blank" href="http://facebook.com/"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
+                        </li>
+                        <li class="list-inline-item border border-light rounded-circle text-center">
+                            <a class="text-light text-decoration-none" target="_blank" href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
+                        </li>
+                        <li class="list-inline-item border border-light rounded-circle text-center">
+                            <a class="text-light text-decoration-none" target="_blank" href="https://twitter.com/"><i class="fab fa-twitter fa-lg fa-fw"></i></a>
+                        </li>
+                        <li class="list-inline-item border border-light rounded-circle text-center">
+                            <a class="text-light text-decoration-none" target="_blank" href="https://www.linkedin.com/"><i class="fab fa-linkedin fa-lg fa-fw"></i></a>
